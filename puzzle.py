@@ -6,12 +6,9 @@ class Puzzle:
 		self.description = description
 		self.solved = False
 	
-	def process_solution(self, answer):
-		if self.solution == answer:
-			self.solved = True
+	def choose_puzzle(self):
+		puzzle = input("> ")
 		
-		return self.solved
-	
 	def start_puzzle(self):
 		print(f"{self.name}")
 		print(f"{self.description}")
