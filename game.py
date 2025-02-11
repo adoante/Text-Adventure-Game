@@ -2,10 +2,11 @@ from player import Player
 from room import Room
 from puzzle import Puzzle
 import sys
+from art import *
 
 class Game:
 	def __init__(self):
-		print("Welcome to [title]\n")
+		tprint("Welcome to [title]")
 
 		# Puzzles init
 
