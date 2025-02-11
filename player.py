@@ -1,9 +1,17 @@
 import sys
 
 class Player:
-	def __init__(self, name):
-		self.name = name
+	def __init__(self):
 		self.current_room = None
+
+	def print_commands(self):
+		print("Commands: ")
+		print("--- Exit  : Exit the game.")
+		print("--- Desc  : Room Description.")
+		print("--- Solve : Pick a puzzle to solve.")
+		print("--- Next  : Move to next room.")
+		print("--- Status: Status of puzzles.")
+		print("--- CMD   : Print commands.\n")
 
 	def input_command(self):
 		command = input("> ").lower()
@@ -14,14 +22,23 @@ class Player:
 			print("Exiting game.")
 			sys.exit()
 
-		elif command == "describe":
+		elif command == "desc":
 			self.current_room.describe()
 
-		elif command == "1":
-			self.current_room.puzzles[0].start_puzzle()
+		elif command == "solve":
+			puzzle1 = self.current_room.puzzles[0]
+			puzzle2 = self.current_room.puzzles[1]
 
-		elif command == "2":
-			self.current_room.puzzles[1].start_puzzle()
+			print(f"1: {puzzle1.name}")
+			print(f"2: {puzzle2.name}")
+
+			puzzle_pick = input("> ").lower()
+
+			if int(puzzle_pick) == 1:
+				puzzle1.choose_puzzle(puzzle1.name)
+			elif int(puzzle_pick) == 2:
+				puzzle2.choose_puzzle(puzzle2.name)	
+						
 
 		elif command == "next":
 			puzzle1 = self.current_room.puzzles[0].solved
@@ -31,3 +48,16 @@ class Player:
 				self.current_room.status = True
 			else:
 				print("You must solve both puzzles to move on.")
+
+		elif command == "status":
+			puzzle1 = self.current_room.puzzles[0]
+			puzzle2 = self.current_room.puzzles[1]
+
+			for puzzle in self.current_room.puzzles:
+				if (puzzle.solved):
+					print(f"{puzzle.name}: Solved")
+				else:
+					print(f"{puzzle.name}: Unsolved")
+
+		elif command == "cmd":
+			self.print_commands()

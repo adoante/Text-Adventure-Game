@@ -1,41 +1,42 @@
 from player import Player
 from room import Room
 from puzzle import Puzzle
+import sys
 
-# Puzzles init
-start_puzzle1 = Puzzle("start puzzle 1", "This is the start puzzle 1")
-start_puzzle2 = Puzzle("start puzzle 2", "This is the start puzzle 2")
+class Game:
+	def __init__(self):
+		print("Welcome to [title]\n")
 
-# Rooms init
-room_number = 0
+		# Puzzles init
 
-rooms = [
-	Room("start", "This is the Start Screen.", [start_puzzle1, start_puzzle2]),
-	Room("start", "This is the Start Screen.", [start_puzzle1, start_puzzle2]),
-	Room("start", "This is the Start Screen.", [start_puzzle1, start_puzzle2]),
-	Room("start", "This is the Start Screen.", [start_puzzle1, start_puzzle2]),
-	Room("start", "This is the Start Screen.", [start_puzzle1, start_puzzle2]),
-	Room("start", "This is the Start Screen.", [start_puzzle1, start_puzzle2])
-	]
+		# Start puzzles 
+		self.start_puzzle1 = Puzzle("Start puzzle 1", "This is the start puzzle 1")
+		self.start_puzzle2 = Puzzle("Start puzzle 2", "This is the start puzzle 2")
+		self.start_puzzles = (self.start_puzzle1, self.start_puzzle2)
 
-# Player init
-player = Player("test_player")
-player.current_room = rooms[room_number]
+		# Rooms init
+		self.room_number = 0
 
-# Game loop
+		self.rooms = [
+			Room("Start", "This is the Start Screen.", self.start_puzzles)
+			]
+		
+		# Player init
+		self.player = Player()
+		self.player.current_room = self.rooms[self.room_number]
 
-print("Welcome to [title]")
-print("Commands: ")
-print("--- Exit : Exit the game.")
-print("--- Desc : Room Description.")
-print("--- 1    : Solve puzzle 1.")
-print("--- 2    : Solve puzzle 2.")
+	def start_game(self):
+		self.player.print_commands()
 
-while True:
-	player.input_command()
+		while True:
+			self.player.input_command()
 
-	if player.current_room.status:
-		room_number += 1
-		player.current_room = rooms[room_number]
-	
+			if self.player.current_room.status:
+				self.room_number += 1
 
+				if self.room_number == len(self.rooms):
+					print("You beat the game!")
+					sys.exit()
+				else:
+					self.player.current_room = self.rooms[self.room_number]
+				
