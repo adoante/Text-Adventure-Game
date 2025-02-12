@@ -12,4 +12,9 @@ Work flow:
   - or init a new room for that new puzzle
 - Test puzzle
 
+Puzzle Example
 ![test-screenshot](./test-screenshot.png)
+
+
+Timer Puzzle Example
+![timer-test-screenshot](./timer-test-screenshot.png)

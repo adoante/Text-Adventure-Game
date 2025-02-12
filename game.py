@@ -20,7 +20,7 @@ class Game:
 		self.timer_puzzles = (self.timer_puzzle1, self.timer_puzzle2)
 
 		# Rooms init
-		self.room_number = 0
+		self.room_number = 1
 
 		self.rooms = [
 			Room("Start", "This is the Start Screen", self.start_puzzles),
