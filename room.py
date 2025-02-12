@@ -7,4 +7,4 @@ class Room:
 
 	def describe(self):
 		print(f"You are in {self.name}.")
-		print(f"{self.description}")
+		print(f"{self.description}.")

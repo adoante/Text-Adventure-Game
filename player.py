@@ -11,10 +11,10 @@ class Player:
 		print("--- Solve : Pick a puzzle to solve.")
 		print("--- Next  : Move to next room.")
 		print("--- Status: Status of puzzles.")
-		print("--- CMD   : Print commands.\n")
+		print("--- CMD   : Print commands.")
 
 	def input_command(self):
-		command = input("> ").lower()
+		command = input("\n> ").lower()
 		self.process_command(command)
 	
 	def process_command(self, command):
@@ -32,7 +32,7 @@ class Player:
 			print(f"1: {puzzle1.name}")
 			print(f"2: {puzzle2.name}")
 
-			puzzle_pick = input("> ").lower()
+			puzzle_pick = input("\n> ").lower()
 
 			if int(puzzle_pick) == 1:
 				puzzle1.run_puzzle()
