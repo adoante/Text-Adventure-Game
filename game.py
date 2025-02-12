@@ -1,6 +1,6 @@
 from player import Player
 from room import Room
-from puzzle import Puzzle
+from puzzle import *
 import sys
 from art import *
 
@@ -11,8 +11,8 @@ class Game:
 		# Puzzles init
 
 		# Start puzzles 
-		self.start_puzzle1 = Puzzle("Start puzzle 1", "This is the start puzzle 1")
-		self.start_puzzle2 = Puzzle("Start puzzle 2", "This is the start puzzle 2")
+		self.start_puzzle1 = StartPuzzle("Start puzzle 1", "This is the start puzzle 1")
+		self.start_puzzle2 = StartPuzzle("Start puzzle 2", "This is the start puzzle 2")
 		self.start_puzzles = (self.start_puzzle1, self.start_puzzle2)
 
 		# Rooms init

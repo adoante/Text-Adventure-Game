@@ -35,9 +35,9 @@ class Player:
 			puzzle_pick = input("> ").lower()
 
 			if int(puzzle_pick) == 1:
-				puzzle1.choose_puzzle(puzzle1.name)
+				puzzle1.run_puzzle()
 			elif int(puzzle_pick) == 2:
-				puzzle2.choose_puzzle(puzzle2.name)	
+				puzzle2.run_puzzle()	
 						
 
 		elif command == "next":

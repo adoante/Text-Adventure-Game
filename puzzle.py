@@ -1,16 +1,17 @@
-class Puzzle:
+from abc import ABC, abstractmethod
+
+class Puzzle(ABC):
 	def __init__(self, name, description=None):
 		self.name = name
 		self.description = description
 		self.solved = False
-		
-	def choose_puzzle(self, name):
-		if name == "Start puzzle 1":
-			self.start_puzzle()
-		elif name == "Start puzzle 2":
-			self.start_puzzle()
-
-	def start_puzzle(self):
+	
+	@abstractmethod
+	def run_puzzle(self):
+		pass
+	
+class StartPuzzle(Puzzle):
+	def run_puzzle(self):
 		print(f"{self.name}")
 		print(f"{self.description}")
 		
