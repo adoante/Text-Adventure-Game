@@ -89,3 +89,32 @@ class TimerPuzzle(Puzzle):
 		threading1.join()
 		
 		return self.solved
+	
+	
+class KeypadRiddlePuzzle(Puzzle):
+	def run_puzzle(self):
+		print(f"{self.name}")
+		print(f"{self.description}")
+
+		answer = input("The keypad asks: 'I am taken from a mine and shut up in a wooden case, but used by almost every person. What am I?' ").lower()
+		if answer == "pencil":
+			self.solved = True
+			print("Correct! The riddle puzzle is solved")
+		else:
+			print("Incorrect. Try again.")
+		return self.solved
+		#pass
+class SecurityPuzzle(Puzzle):
+	def run_puzzle(self):
+		print(f"{self.name}")
+		print(f"{self.description}")
+
+		answer = input("The screen flashes '3 + 5'. Enter the correct code: ").lower()
+		if answer == "8":
+			self.solved = True
+			print("Correct! The door unlocks.")
+		else:
+			print("Incorrect. Try again.")
+		return self.solved
+	
+

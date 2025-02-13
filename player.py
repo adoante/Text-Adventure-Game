@@ -68,7 +68,50 @@ class Player:
 					print("You solved both puzzles.")
 					print("Pick an item to take with you.\n")
 
-					item1 = self.current_room.items[0]
+					if len(self.current_room.items) == 0:
+						print("There are no items in this room to pick")
+						break
+
+					#listing available items
+					for i, item in enumerate(self.current_room.items, 1):
+						print(f"{i}: {item}")
+					
+					item = input("\n> ").lower()
+
+					try:
+						item_index = int(item) - 1
+						if 0 <= item_index < len(self.current_room.items):
+							item_to_take = self.current_room.items.pop(item_index)
+							self.items.append(item_to_take)
+							print(f"You took the {item_to_take}")
+							break
+						else:
+							print("Not an option.\n")
+							break
+						
+					except:
+						print("Not an option\n")
+						continue
+
+				else:
+					print("You must solve both puzzles to move on")
+
+			elif command == "status":
+					for puzzle in self.current_room.puzzles:
+						print(f"{puzzle.name}: {'Solved' if puzzle.solved else 'Unsolved'}")
+
+			#print items that in players inventory
+			elif command == "items":
+					if self.items:
+						print(f"Items in your inventory: {', '.join(self.items)}")
+					else:
+						print("You have no items in your inventory")
+
+			#prints available commands
+			elif command == "cmd":
+				self.print_commands()
+
+"""item1 = self.current_room.items[0]
 					item2 = self.current_room.items[1]
 
 					print(f"1: {item1}")
@@ -108,3 +151,4 @@ class Player:
 		# Print Commands 
 		elif command == "cmd":
 			self.print_commands()
+"""

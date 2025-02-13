@@ -1,3 +1,6 @@
+import textwrap
+
+
 class Room:
 	def __init__(self, name, description, puzzles, items):
 		self.name = name
@@ -11,4 +14,10 @@ class Room:
 		print(f"{self.description}.")
 
 	def remove_item(self, item):
-		return self.items.pop(item)
+		if item in self.items:
+			self.items.remove(item)
+			print(f"{item} has been removed from the room.")
+		else:
+			print(f"{item} is not in the room")
+		#return self.items.pop(item)
+	
