@@ -5,16 +5,19 @@ import sys
 import time
 import threading
 
+# Puzzle Interface
+# Must implement run_puzzle() and return self.solved
 class Puzzle(ABC):
-	def __init__(self, name, description=None):
+	def __init__(self, name, description):
 		self.name = name
 		self.description = description
 		self.solved = False
-	
+
 	@abstractmethod
 	def run_puzzle(self):
 		pass
-	
+
+# Example Puzzle
 class StartPuzzle(Puzzle):
 	def run_puzzle(self):
 		print(f"{self.name}")
@@ -34,8 +37,11 @@ class StartPuzzle(Puzzle):
 		
 		return self.solved
 
+# Example Timer Puzzle
+# Uses threading for the countdown timer because input() haults the program
 class TimerPuzzle(Puzzle):
 	
+	# Example function that threading requires to be passed into it
 	def timer_time(self, stop):
 		countdown_time = 10
 
@@ -60,6 +66,7 @@ class TimerPuzzle(Puzzle):
 		print(f"{self.name}")
 		print(f"{self.description}")
 
+		# Basic threading setup
 		stop_thread = False
 		threading1 = threading.Thread(target=self.timer_time, args=(lambda: stop_thread,))
 		threading1.daemon = True
@@ -77,6 +84,8 @@ class TimerPuzzle(Puzzle):
 		else:
 			print("Incorrect. :(")
 		
+		# Remember to stop and join the thread
 		stop_thread = True
 		threading1.join()
+		
 		return self.solved
