@@ -19,5 +19,4 @@ class Room:
 			print(f"{item} has been removed from the room.")
 		else:
 			print(f"{item} is not in the room")
-		#return self.items.pop(item)
 	
