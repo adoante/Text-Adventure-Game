@@ -16,6 +16,8 @@ class Puzzle(ABC):
 	@abstractmethod
 	def run_puzzle(self):
 		pass
+	
+
 
 # Example Puzzle
 class StartPuzzle(Puzzle):
@@ -118,3 +120,54 @@ class SecurityPuzzle(Puzzle):
 		return self.solved
 	
 
+
+	
+# Hacking puzzle
+class HackingPuzzle(Puzzle):
+	def run_puzzle(self):
+		print(f"{self.name}")
+		print(f"{self.description}")
+
+		print("You must guess the correct password within 3 attempts")
+
+		correct_password = "phoenix"
+		attempts = 3
+
+		for attempt in range(1, attempts + 1):
+			guess = input(f"Attempt {attempt}/{attempts} - Enter password: ").lower()
+
+			if guess == correct_password:
+				self.solved = True
+				print("Acces granted! You have succesfully hacked into the system")
+				break
+			else:
+				print("Access denied. Try again.")
+		if not self.solved:
+			print("Too many failed attempts. The system locks you out.")
+
+		return self.solved
+	
+# wire cutting puzzle
+class WireCuttingPuzzle(Puzzle):
+	def run_puzzle(self):
+		print(f"{self.name}")
+		print(f"{self.description}")
+
+		print("The lights are flickering, you need to cut the right wires to disarm the security system")
+		print("There are 3 wires: red, blue, yellow")
+		
+
+		# hardcoded correct sequence (for now)
+		correct_sequence = ["red", "yellow", "blue"]
+		sequence = []
+
+		for i in range(3):
+			wire = input(f"Cut wire {i + 1}:").lower()
+			sequence.append(wire)
+
+		if sequence == correct_sequence:
+			self.solved = True
+			print("You successfully cut the wires in the right order! The lights go out")
+		else:
+			print("Incorrect wire cutting sequence. The lights remain on, security may be on the way")
+		return self.solved

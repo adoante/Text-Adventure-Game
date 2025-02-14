@@ -31,6 +31,7 @@ class Player:
 		# Describes the room the player is in
 		elif command == "desc":
 			self.current_room.describe()
+			self.print_commands()
 
 		# Ask you to pick a puzzle to solve
 		elif command == "solve":
@@ -51,7 +52,10 @@ class Player:
 				else:
 					print("Not an option.")
 			except:
-				print("Not an option.")			
+				print("Not an option.")		
+
+			#after attempting a puzzle the commands will print again
+			self.print_commands()	
 
 		# Moves player to next room if both puzzles are solved
 		# Asks player to pick an item to take from current room
@@ -93,20 +97,69 @@ class Player:
 						print("Not an option\n")
 						continue
 
+					print("You move to the next room")
+				self.print_commands()
 			else:
 				print("You must solve both puzzles to move on")
+				self.print_commands()
+
 
 		elif command == "status":
-				for puzzle in self.current_room.puzzles:
-					print(f"{puzzle.name}: {'Solved' if puzzle.solved else 'Unsolved'}")
+			for puzzle in self.current_room.puzzles:
+				print(f"{puzzle.name}: {'Solved' if puzzle.solved else 'Unsolved'}")
+			self.print_commands()
 
 		#print items that in players inventory
 		elif command == "items":
-				if self.items:
-					print(f"Items in your inventory: {', '.join(self.items)}")
-				else:
-					print("You have no items in your inventory")
+			if self.items:
+				print(f"Items in your inventory: {', '.join(self.items)}")
+			else:
+				print("You have no items in your inventory")
+			self.print_commands()
 
-		#prints available commands
+			#prints available commands
 		elif command == "cmd":
 			self.print_commands()
+			
+
+"""item1 = self.current_room.items[0]
+					item2 = self.current_room.items[1]
+
+					print(f"1: {item1}")
+					print(f"2: {item2}")
+				
+					item = input("\n> ").lower()
+
+					try:
+						if int(item) == 1:
+							self.items.append(item1)
+							break
+						elif int(item) == 2:
+							self.items.append(item2)
+							break
+						print("Not an option.\n")
+					except:
+						print("Not an option.\n")
+						continue
+			else:
+				print("You must solve both puzzles to move on.")
+
+		# Print status of puzzles
+		elif command == "status":
+			puzzle1 = self.current_room.puzzles[0]
+			puzzle2 = self.current_room.puzzles[1]
+
+			for puzzle in self.current_room.puzzles:
+				if (puzzle.solved):
+					print(f"{puzzle.name}: Solved")
+				else:
+					print(f"{puzzle.name}: Unsolved")
+
+		# Print items
+		elif command == "items":
+			print(f"Items: {self.items}")
+
+		# Print Commands 
+		elif command == "cmd":
+			self.print_commands()
+"""

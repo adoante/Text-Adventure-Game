@@ -4,6 +4,9 @@ from puzzle import *
 import sys
 from art import *
 import time
+#from puzzle import SecurityPuzzle, KeypadRiddlePuzzle, WireCuttingPuzzle, HackingPuzzle
+#from puzzle import WireCuttingPuzzle
+
 
 class Game:
 	def __init__(self):
@@ -29,9 +32,20 @@ class Game:
 
 		
 
-		self.timer_puzzle1 = TimerPuzzle("Timer puzzle 1", "This is a timer puzzle")
+		"""self.timer_puzzle1 = TimerPuzzle("Timer puzzle 1", "This is a timer puzzle")
 		self.timer_puzzle2 = TimerPuzzle("Timer puzzle 2", "This is a timer puzzle")
-		self.timer_puzzles = (self.timer_puzzle1, self.timer_puzzle2)
+		self.timer_puzzles = (self.timer_puzzle1, self.timer_puzzle2)"""
+
+		"""self.control_room_puzzles = [
+			WireCuttingPuzzle("Disarm the lights", "Disarm the lights by cutting the wires in the correct order"),
+			HackingPuzzle("Hack the Mainframe", "Guess the password to gain control of the security systems")
+		]"""
+		# Wire cutting and hacking puzzles
+		self.wire_puzzle = WireCuttingPuzzle("Wire Cutting Puzzle", "Cut the right wires to disable the lights")
+		self.hacking_puzzle = HackingPuzzle("Hacking Puzzle", "Hack into the system to override security")
+		print(self.wire_puzzle)
+		self.timer_puzzles = (self.wire_puzzle, self.hacking_puzzle)
+
 
 		# Rooms init
 		self.room_number = 0
@@ -49,7 +63,7 @@ class Game:
 				
 
 			As you enter the facility through a vent you disabled weeks ago, the dim emergency lights flicker, casting eerie shadows
-			across the metal walls. You're not just breaking in-you're walking a pth you've already rehearsed in you mind a thousand times.
+			across the metal walls. You're not just breaking in-you're walking a path you've already rehearsed in you mind a thousand times.
 				
 				
 			Despite the overwhelming confidence in your plan, you know better than to let your guard down. Your first challenge awaits. Solve
@@ -60,9 +74,19 @@ class Game:
 			),
 			#Room("Start", "This is the Start Screen", self.start_puzzles, ["item1", "item2"]),
 			#Room("Timer", "This is the Timer puzzle room", self.timer_puzzles,  ["item3", "item4"]),
+			Room(
+				"Control Room",
+				"""You manage to sneak your way into the Contrl Room, where the facility's security system is centralized.
+				Rows of screens display various surveillance feeds, and a red light flashes urgently above the main panel, signaling a security breach.
+				The room feels like a high-tech maze, and you can almost hear the hum of the electronics and the heartbeat of the facility's security
+				network.
+				It's now or never - if you don't shut down the lights, you'll be caught before you can even get close to the vault
+				""",
+					self.timer_puzzles,
+					["Decryption Manuel", "Security Key"]
+			),
 
-
-			Room("Timer", "This is the Timer puzzle room", self.timer_puzzles, ["Disguise Kit", "New Gloves"]),
+			#Room("Timer", "This is the Timer puzzle room", self.timer_puzzles, ["Disguise Kit", "Decryption Manul"]),
 			]
 			
 
