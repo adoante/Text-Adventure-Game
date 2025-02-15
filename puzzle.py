@@ -290,3 +290,13 @@ class CircuitMatchingPuzzle(Puzzle):
 		if (self.solved):
 			print("⚡Power successfully rerouted! ⚡")
 		return self.solved
+
+# Maintenance Shaft Puzzles
+
+class MovingPlatformPuzzle(Puzzle):
+	def run_puzzle(self):
+		return super().run_puzzle()
+	
+class DeactivationPuzzle(Puzzle):
+	def run_puzzle(self):
+		return super().run_puzzle()

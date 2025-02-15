@@ -32,6 +32,11 @@ class Game:
 		self.circuit_puzzle = CircuitMatchingPuzzle("Circuit Matching Puzzle", "Match the nodes to each other.")
 		self.data_center_puzzles = (self.virus_puzzle, self.circuit_puzzle)
 
+		# Maintenance Shaft
+		self.platform_puzzle = MovingPlatformPuzzle("Moving Platform Puzzle", "Time your jumps to get across.")
+		self.deactivation_puzzle = DeactivationPuzzle("Deactivation Puzzle", "Deactivate the electric barriers.")
+		self.maintenance_shaft_puzzles = (self.platform_puzzle, self.deactivation_puzzle)
+
 		# Rooms init
 		self.room_number = 2
 
@@ -81,6 +86,18 @@ class Game:
 				""",
 				self.data_center_puzzles,
 				["Big Data", "Circuit Diagram"]
+			),
+			Room(
+				"Maintenance Shaft",
+				"""
+				The door slams shut behind you, locking you in a dimly lit maintenance shaft.
+				You can hear the whirring of mechanical systems and the distant sound of guards mobilizing.
+				In front of you is a ventilation panel, partially opened, and beyond it is the only exit.
+				The problem? A network of electric barriers and moving platforms blocks your path.
+				You'll need to power down the barriers and time your movements to slip through
+				""",
+				self.maintenance_shaft_puzzles,
+				["Floating Platform", "Car Battery"]
 			)
 			]
 			
