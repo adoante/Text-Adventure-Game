@@ -217,16 +217,16 @@ class UploadVirusPuzzle(Puzzle):
 			index = virus[0]
 			
 			if answer != virus[1] and input_time != timing[index]:
-				print("Error! Virus upload failed! Wrong code and timing!")
+				print("Error! Virus upload failed! Wrong code and timing! ❌")
 				break
 			elif answer != virus[1]:
-				print("Error! Virus upload failed! Wrong code!")
+				print("Error! Virus upload failed! Wrong code! ❌")
 				break
 			elif input_time != timing[index]:
-				print("Error! Virus upload failed! Wrong timing!")
+				print("Error! Virus upload failed! Wrong timing! ❌")
 				break
 			elif answer == virus[1] and input_time == timing[index]:
-				print("Successful input!")
+				print("Successful input! ✔️")
 				virus_code_count += 1
 
 			stop_thread = True
@@ -236,10 +236,57 @@ class UploadVirusPuzzle(Puzzle):
 		# Check if all inputs where correct
 		if virus_code_count == len(virus_code):
 			self.solved = True
-			print("Virus upload successful!")
+			print(" ⌨️ Virus upload successful! ⌨️")
 
 		# Remember to stop and join the thread
 		stop_thread = True
 		threading1.join()
 		
+		return self.solved
+	
+class CircuitMatchingPuzzle(Puzzle):
+	def run_puzzle(self):
+		print(f"{self.name}")
+		print(f"{self.description}")
+
+		print("You must match the circuit nodes to each other.")
+		print("The nodes are labeled with numbers perhaps there's a pattern to it.")
+
+		nodes_key = [(2, 11), (13, 29), (31, 47), (53, 71), (73, 97)]
+
+		nodes = [
+			2, 3, 5, 7, 11,
+			13, 17, 19, 23, 29,
+			31, 37, 41, 43, 47,
+			53, 59, 61, 67, 71,
+			73, 79, 83, 89, 97
+		   ]
+
+		print("Nodes: ")	
+		print(f"| {nodes[0]}  | {nodes[1]}  | {nodes[2]}  | {nodes[3]}  | {nodes[4]}")
+		print(f"| {nodes[5]} | {nodes[6]} | {nodes[7]} | {nodes[8]} | {nodes[9]}")
+		print(f"| {nodes[10]} | {nodes[11]} | {nodes[12]} | {nodes[13]} | {nodes[14]}")
+		print(f"| {nodes[15]} | {nodes[16]} | {nodes[17]} | {nodes[18]} | {nodes[19]}")
+		print(f"| {nodes[20]} | {nodes[21]} | {nodes[22]} | {nodes[23]} | {nodes[24]}")
+
+		for nodes in nodes_key:
+			answer = input(f"> Node {nodes[0]} -> ").lower()
+
+			try:
+				answer = int(answer)
+			except:
+				print("Bad input! ❌")
+				self.solved = False
+				return self.solved
+			
+			if int(answer) != nodes[1]:
+				print("Bad connection made! ❌")
+				self.solved = False
+				break
+			else:
+				print("Good connection! ✔️")
+				self.solved = True
+
+		if (self.solved):
+			print("⚡Power successfully rerouted! ⚡")
 		return self.solved

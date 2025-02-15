@@ -11,7 +11,7 @@ class Room:
 
 	def describe(self):
 		print(f"You are in {self.name}.")
-		print(f"{self.description}.")
+		print(f"{self.description}")
 
 	def remove_item(self, item):
 		if item in self.items:

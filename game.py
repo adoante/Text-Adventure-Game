@@ -29,36 +29,39 @@ class Game:
 
 		# Data Center - Upload virus and [puzzle] puzzles
 		self.virus_puzzle = UploadVirusPuzzle("Virus Upload Puzzle", "Upload the virus to the system.")
-		self.data_center_puzzles = (self.virus_puzzle, self.virus_puzzle)
+		self.circuit_puzzle = CircuitMatchingPuzzle("Circuit Matching Puzzle", "Match the nodes to each other.")
+		self.data_center_puzzles = (self.virus_puzzle, self.circuit_puzzle)
 
 		# Rooms init
-		self.room_number = 0
+		self.room_number = 2
 
 		self.rooms = [
 
 			Room(
 				"Start",
-				"""This is where it all begins. 
-			You find yourself crouched in a shadowy corner of the alley outside the facility,
-			reviewing the map of the building one last time. The rain beats down,
-			muffling the sounds of distant footsteps. You've been planning this heist for months, gathering every scrap of 
-			intelligence and analyzing every possible escape route. You know this building better than its own security team - every
-			bypassed camera, every hidden vent, It's your playground now.
-				
+				"""
+				This is where it all begins. 
+				You find yourself crouched in a shadowy corner of the alley outside the facility,
+				reviewing the map of the building one last time. The rain beats down,
+				muffling the sounds of distant footsteps. You've been planning this heist for months, gathering every scrap of 
+				intelligence and analyzing every possible escape route. You know this building better than its own security team - every
+				bypassed camera, every hidden vent, It's your playground now.
 
-			As you enter the facility through a vent you disabled weeks ago, the dim emergency lights flicker, casting eerie shadows
-			across the metal walls. You're not just breaking in-you're walking a path you've already rehearsed in you mind a thousand times.
-				
-				
-			Despite the overwhelming confidence in your plan, you know better than to let your guard down. Your first challenge awaits. Solve
-			these simple security measures to proceed further. There's no turning back now.
-			""",
+
+				As you enter the facility through a vent you disabled weeks ago, the dim emergency lights flicker, casting eerie shadows
+				across the metal walls. You're not just breaking in-you're walking a path you've already rehearsed in you mind a thousand times.
+
+
+				Despite the overwhelming confidence in your plan, you know better than to let your guard down. Your first challenge awaits. Solve
+				these simple security measures to proceed further. There's no turning back now.
+				""",
 				self.start_puzzles,
 				["Pass Key", "Camera App"]
 			),
 			Room(
 				"Control Room",
-				"""You manage to sneak your way into the Control Room, where the facility's security system is centralized.
+				"""
+				You manage to sneak your way into the Control Room, where the facility's security system is centralized.
 				Rows of screens display various surveillance feeds, and a red light flashes urgently above the main panel, signaling a security breach.
 				The room feels like a high-tech maze, and you can almost hear the hum of the electronics and the heartbeat of the facility's security
 				network.
@@ -69,7 +72,8 @@ class Game:
 			),
 			Room(
 				"Data Center",
-				"""You push open a door and step into the Data Center—a vast room with towering servers humming with electricity.
+				"""
+				You push open a door and step into the Data Center—a vast room with towering servers humming with electricity.
 				Rows of blinking lights and whirring fans create a sense of controlled chaos.
 				In the center of the room is a terminal connected to the vault's master systems.
 				To proceed, you'll need to reroute power and upload a virus to the system.
