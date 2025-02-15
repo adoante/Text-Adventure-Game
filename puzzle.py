@@ -5,6 +5,8 @@ import sys
 import time
 import threading
 
+import random as random
+
 # Puzzle Interface
 # Must implement run_puzzle() and return self.solved
 class Puzzle(ABC):
@@ -181,7 +183,7 @@ class UploadVirusPuzzle(Puzzle):
 			mins, secs = divmod(countdown_time, 60) 
 			timer = '{:02d}:{:02d}'.format(mins, secs)
 			
-			timer_answer = ((f"\n{timer}> Answer: ").lower())
+			timer_answer = ((f"\n{timer}> Answer: "))
 
 			print(timer_answer, end="")
 			
@@ -294,8 +296,84 @@ class CircuitMatchingPuzzle(Puzzle):
 # Maintenance Shaft Puzzles
 
 class MovingPlatformPuzzle(Puzzle):
+
+	input_interval = 0
+
+	def timer_time(self, stop, t_id):
+		global input_interval
+		interval = 0
+
+		#print(f"Starting thread {t_id}")
+
+		while True:
+			if stop():
+				break
+
+			interval_answer = ((f"\n> Interval {interval % 4 + 1}: "))
+
+			print(interval_answer, end="")
+				
+			time.sleep(1)
+			interval += 1
+			input_interval = interval
+
 	def run_puzzle(self):
-		return super().run_puzzle()
+		global input_interval
+
+		print(f"{self.name}")
+		print(f"{self.description}")
+
+		print("You must time your jumps to the specified interval to avoid falling.")
+
+		intervals = [1, 2, 3, 4]
+		jump_count = 0
+		platform_num = 4
+
+		for i in range(platform_num):
+
+			interval = random.choice(intervals)
+			print(f"Enter 'j' to jump at interval {interval}")
+			time.sleep(1.5)
+
+			# threading setup
+			t_id = i
+			stop_thread = False
+			threading1 = threading.Thread(target=self.timer_time, args=(lambda: stop_thread, t_id))
+			threading1.daemon = True
+			threading1.start()
+
+			answer = input().lower()
+			input_interval = input_interval % 4 + 1
+			jump_cmd = "j"
+
+			if interval != input_interval and answer != jump_cmd:
+				print("Bad input and wrong interval! ❌")
+				break
+			elif answer != jump_cmd:
+				print("Bad input! ❌")
+				break
+			elif interval != input_interval:
+				print("Wrong interval! Try again! ❌")
+				break
+			elif answer == jump_cmd and interval == input_interval:
+				print(f"You jumped on platform: {i + 1}.")
+				print(f"{platform_num - i - 1} more! 🦘")
+				jump_count += 1
+
+			stop_thread = True
+			threading1.join()
+			input_interval = 0
+
+		# Check if all inputs where correct
+		if jump_count == platform_num:
+			self.solved = True
+			print(" 🦘 You made it across! 🦘")
+
+		# Remember to stop and join the thread
+		stop_thread = True
+		threading1.join()
+
+		return self.solved
 	
 class DeactivationPuzzle(Puzzle):
 	def run_puzzle(self):

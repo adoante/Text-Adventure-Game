@@ -38,7 +38,7 @@ class Game:
 		self.maintenance_shaft_puzzles = (self.platform_puzzle, self.deactivation_puzzle)
 
 		# Rooms init
-		self.room_number = 2
+		self.room_number = 3
 
 		self.rooms = [
 
@@ -123,7 +123,7 @@ class Game:
 		#splitting the story into lines and print each line with a small delay for a scrolling effect
 		for line in story.splitlines():
 			print(line)
-			time.sleep(1) #this will adjust this for longer/shorter pauses between lines
+			#time.sleep(1) #this will adjust this for longer/shorter pauses between lines
 		print("\nType 'Next' to begin your journey or 'Exit' to quit the game.")
 
 		#this is for waiting for the players input so the game can start
