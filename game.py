@@ -16,36 +16,20 @@ class Game:
 		self.print_story()
 
 		# Puzzles init
-		#print(self.security_panel_puzzle)
-		#print(KeypadRiddlePuzzle)
-
 
 		# Start puzzles
-		
 		self.security_puzzle = SecurityPuzzle("Security Panel Puzzle", "Solve the math code")
 		self.keypad_riddle_puzzle = KeypadRiddlePuzzle("Keypad Riddle Puzzle", "Solve the riddle") 
-		print(self.security_puzzle)
 		self.start_puzzles = (self.security_puzzle, self.keypad_riddle_puzzle)
-		#self.start_puzzle1 = StartPuzzle("StartPuzzle1", "This is the start puzzle 1")
-		#self.start_puzzle2 = StartPuzzle("StartPuzzle2", "This is the start puzzle 2")
-		#self.start_puzzles = (self.start_puzzle1, self.start_puzzle2)
 
-		
-
-		"""self.timer_puzzle1 = TimerPuzzle("Timer puzzle 1", "This is a timer puzzle")
-		self.timer_puzzle2 = TimerPuzzle("Timer puzzle 2", "This is a timer puzzle")
-		self.timer_puzzles = (self.timer_puzzle1, self.timer_puzzle2)"""
-
-		"""self.control_room_puzzles = [
-			WireCuttingPuzzle("Disarm the lights", "Disarm the lights by cutting the wires in the correct order"),
-			HackingPuzzle("Hack the Mainframe", "Guess the password to gain control of the security systems")
-		]"""
-		# Wire cutting and hacking puzzles
+		# Control Room - Wire cutting and hacking puzzles
 		self.wire_puzzle = WireCuttingPuzzle("Wire Cutting Puzzle", "Cut the right wires to disable the lights")
 		self.hacking_puzzle = HackingPuzzle("Hacking Puzzle", "Hack into the system to override security")
-		print(self.wire_puzzle)
-		self.timer_puzzles = (self.wire_puzzle, self.hacking_puzzle)
+		self.control_room_puzzles = (self.wire_puzzle, self.hacking_puzzle)
 
+		# Data Center - Upload virus and [puzzle] puzzles
+		self.virus_puzzle = UploadVirusPuzzle("Virus Upload Puzzle", "Upload the virus to the system.")
+		self.data_center_puzzles = (self.virus_puzzle, self.virus_puzzle)
 
 		# Rooms init
 		self.room_number = 0
@@ -72,25 +56,30 @@ class Game:
 				self.start_puzzles,
 				["Pass Key", "Camera App"]
 			),
-			#Room("Start", "This is the Start Screen", self.start_puzzles, ["item1", "item2"]),
-			#Room("Timer", "This is the Timer puzzle room", self.timer_puzzles,  ["item3", "item4"]),
 			Room(
 				"Control Room",
-				"""You manage to sneak your way into the Contrl Room, where the facility's security system is centralized.
+				"""You manage to sneak your way into the Control Room, where the facility's security system is centralized.
 				Rows of screens display various surveillance feeds, and a red light flashes urgently above the main panel, signaling a security breach.
 				The room feels like a high-tech maze, and you can almost hear the hum of the electronics and the heartbeat of the facility's security
 				network.
 				It's now or never - if you don't shut down the lights, you'll be caught before you can even get close to the vault
 				""",
-					self.timer_puzzles,
-					["Decryption Manuel", "Security Key"]
+					self.control_room_puzzles,
+					["Decryption Manual", "Security Key"]
 			),
-
-			#Room("Timer", "This is the Timer puzzle room", self.timer_puzzles, ["Disguise Kit", "Decryption Manul"]),
+			Room(
+				"Data Center",
+				"""You push open a door and step into the Data Center—a vast room with towering servers humming with electricity.
+				Rows of blinking lights and whirring fans create a sense of controlled chaos.
+				In the center of the room is a terminal connected to the vault's master systems.
+				To proceed, you'll need to reroute power and upload a virus to the system.
+				You can feel the pressure mounting as a countdown timer on the wall signals how much time you have before reinforcements arrive.
+				""",
+				self.data_center_puzzles,
+				["Big Data", "Circuit Diagram"]
+			)
 			]
 			
-
-		
 		# Player init
 		self.player = Player()
 		self.player.current_room = self.rooms[self.room_number]

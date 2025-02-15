@@ -17,8 +17,6 @@ class Puzzle(ABC):
 	def run_puzzle(self):
 		pass
 	
-
-
 # Example Puzzle
 class StartPuzzle(Puzzle):
 	def run_puzzle(self):
@@ -40,7 +38,7 @@ class StartPuzzle(Puzzle):
 		return self.solved
 
 # Example Timer Puzzle
-# Uses threading for the countdown timer because input() haults the program
+# Uses threading for the countdown timer because input() halts the program
 class TimerPuzzle(Puzzle):
 	
 	# Example function that threading requires to be passed into it
@@ -74,7 +72,7 @@ class TimerPuzzle(Puzzle):
 		threading1.daemon = True
 		threading1.start()
 
-		answer = input()
+		answer = input().lower()
 
 		if answer == "exit":
 			sys.exit()
@@ -92,7 +90,6 @@ class TimerPuzzle(Puzzle):
 		
 		return self.solved
 	
-	
 class KeypadRiddlePuzzle(Puzzle):
 	def run_puzzle(self):
 		print(f"{self.name}")
@@ -105,7 +102,7 @@ class KeypadRiddlePuzzle(Puzzle):
 		else:
 			print("Incorrect. Try again.")
 		return self.solved
-		#pass
+		
 class SecurityPuzzle(Puzzle):
 	def run_puzzle(self):
 		print(f"{self.name}")
@@ -118,9 +115,6 @@ class SecurityPuzzle(Puzzle):
 		else:
 			print("Incorrect. Try again.")
 		return self.solved
-	
-
-
 	
 # Hacking puzzle
 class HackingPuzzle(Puzzle):
@@ -138,7 +132,7 @@ class HackingPuzzle(Puzzle):
 
 			if guess == correct_password:
 				self.solved = True
-				print("Acces granted! You have succesfully hacked into the system")
+				print("Access granted! You have successfully hacked into the system")
 				break
 			else:
 				print("Access denied. Try again.")
@@ -156,7 +150,6 @@ class WireCuttingPuzzle(Puzzle):
 		print("The lights are flickering, you need to cut the right wires to disarm the security system")
 		print("There are 3 wires: red, blue, yellow")
 		
-
 		# hardcoded correct sequence (for now)
 		correct_sequence = ["red", "yellow", "blue"]
 		sequence = []
@@ -170,4 +163,83 @@ class WireCuttingPuzzle(Puzzle):
 			print("You successfully cut the wires in the right order! The lights go out")
 		else:
 			print("Incorrect wire cutting sequence. The lights remain on, security may be on the way")
+		return self.solved
+	
+# Upload a virus puzzle
+class UploadVirusPuzzle(Puzzle):
+
+	input_time = 0
+
+	def timer_time(self, stop):
+		global input_time
+		countdown_time = 0
+
+		while True:
+			if stop():
+				break
+
+			mins, secs = divmod(countdown_time, 60) 
+			timer = '{:02d}:{:02d}'.format(mins, secs)
+			
+			timer_answer = ((f"\n{timer}> Answer: ").lower())
+
+			print(timer_answer, end="")
+			
+			time.sleep(1)
+			countdown_time += 1
+			input_time = countdown_time
+
+	def run_puzzle(self):
+		global input_time
+
+		print(f"{self.name}")
+		print(f"{self.description}")
+
+		print("You must input the virus code at the specified time to successfully infect the system.")
+
+		#virus_code = ['abc', 'de', 'fgh', 'ijk', 'lmno', 'p']
+		virus_code = ['a', 'd', 'f', 'i', 'l', 'p']
+		virus_code_count = 0
+		timing = [1, 3, 4, 2, 3, 4]
+
+		for virus in enumerate(virus_code):
+			print(f"You must enter '{virus[1]}' at '{timing[virus[0]]}' seconds.")
+			time.sleep(1.5)
+
+			# threading setup
+			stop_thread = False
+			threading1 = threading.Thread(target=self.timer_time, args=(lambda: stop_thread,))
+			threading1.daemon = True
+			threading1.start()
+
+			answer = input().lower()
+
+			index = virus[0]
+			
+			if answer != virus[1] and input_time != timing[index]:
+				print("Error! Virus upload failed! Wrong code and timing!")
+				break
+			elif answer != virus[1]:
+				print("Error! Virus upload failed! Wrong code!")
+				break
+			elif input_time != timing[index]:
+				print("Error! Virus upload failed! Wrong timing!")
+				break
+			elif answer == virus[1] and input_time == timing[index]:
+				print("Successful input!")
+				virus_code_count += 1
+
+			stop_thread = True
+			threading1.join()
+			input_time = 0
+		
+		# Check if all inputs where correct
+		if virus_code_count == len(virus_code):
+			self.solved = True
+			print("Virus upload successful!")
+
+		# Remember to stop and join the thread
+		stop_thread = True
+		threading1.join()
+		
 		return self.solved

@@ -97,7 +97,7 @@ class Player:
 						print("Not an option\n")
 						continue
 
-					print("You move to the next room")
+				print("You move to the next room")
 				self.print_commands()
 			else:
 				print("You must solve both puzzles to move on")
@@ -120,46 +120,3 @@ class Player:
 			#prints available commands
 		elif command == "cmd":
 			self.print_commands()
-			
-
-"""item1 = self.current_room.items[0]
-					item2 = self.current_room.items[1]
-
-					print(f"1: {item1}")
-					print(f"2: {item2}")
-				
-					item = input("\n> ").lower()
-
-					try:
-						if int(item) == 1:
-							self.items.append(item1)
-							break
-						elif int(item) == 2:
-							self.items.append(item2)
-							break
-						print("Not an option.\n")
-					except:
-						print("Not an option.\n")
-						continue
-			else:
-				print("You must solve both puzzles to move on.")
-
-		# Print status of puzzles
-		elif command == "status":
-			puzzle1 = self.current_room.puzzles[0]
-			puzzle2 = self.current_room.puzzles[1]
-
-			for puzzle in self.current_room.puzzles:
-				if (puzzle.solved):
-					print(f"{puzzle.name}: Solved")
-				else:
-					print(f"{puzzle.name}: Unsolved")
-
-		# Print items
-		elif command == "items":
-			print(f"Items: {self.items}")
-
-		# Print Commands 
-		elif command == "cmd":
-			self.print_commands()
-"""
