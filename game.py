@@ -36,13 +36,19 @@ class Game:
 		self.deactivation_puzzle = DeactivationPuzzle("Deactivation Puzzle", "Deactivate the electric barriers.")
 		self.maintenance_shaft_puzzles = (self.platform_puzzle, self.deactivation_puzzle)
 
+		#antechamber
 		self.Riddle_puzzle = RapidRiddles("Rapid Riddles Puzzle", "Answer all the riddles before the time runs out.")
 		self.Song_guesser = guessThatSong("Guess That Song Puzzle", "What well-known song is this string of letters referring to?")
 		self.antechamber_puzzles = (self.Riddle_puzzle, self.Song_guesser)
 
+		#Vault
+		self.Weight_exchange = weightExchange("Weight Exchange Puzzle","Guess the correct weight of the Black Phoenix so you can switch the diamond out with a counter weight.")
+		self.escape_hatch = escapeHatchHack("Escape Hatch puzzle", "Solve the math code to open the escape hatch.")
+		self.vault_puzzles = [self.Weight_exchange,self.escape_hatch]
+
 		# Rooms init
 
-		self.room_number = 4
+		self.room_number = 5
 		#self.room_number = 3
 		#self.room_number = 2
 
@@ -118,6 +124,19 @@ class Game:
 				""",
 				self.antechamber_puzzles,
 				["Rail Gun", "Meteorite"]
+			),
+			Room(
+				"Vault",
+				"""
+				The vault door hisses open, revealing a pedestal in the center of a stark, brightly lit room.
+				Sitting on the pedestal is the Black Phoenix—the diamond that’s driven you to plan this heist for months.
+				It sparkles with an otherworldly brilliance under the harsh lights.
+				But as you step forward, an alarm blares. The facility has entered full lockdown.
+				There’s no time to think. You must escape with the prize—now.
+				""",
+				self.vault_puzzles,
+				["Object 1", "Object 2"]
+				
 			)
 			]
 			

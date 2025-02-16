@@ -611,9 +611,8 @@ class RapidRiddles(Puzzle):
 				if self.answered == 3:
 					print("You have solved the puzzle.")
 					break  # Stop waiting for input
-				else:
-					print("Incorrect. :(")
-					break  # Stop waiting for input
+			else:
+				print("Incorrect. :(")
 
 		stop_thread = True  # Ensure the timer stops
 		timer_thread.join()
@@ -703,7 +702,6 @@ class guessThatSong(Puzzle):
 				break  # Stop waiting for input
 			else:
 				print("Incorrect. :(")
-				break  # Stop waiting for input
 		stop_thread = True  # Ensure the timer stops
 		timer_thread.join()
 		"""while not self.time_up:
@@ -731,3 +729,119 @@ class guessThatSong(Puzzle):
 		timer_thread.join()"""
 
 		return self.solved  # Always return self.solved
+	
+
+class weightExchange(Puzzle):
+
+	def timer_time(self, stop):
+		countdown_time = 15
+
+		while countdown_time:
+			if stop():
+				return  # Stop immediately if flagged
+			
+			mins, secs = divmod(countdown_time, 60)
+			print(f"\n{mins:02d}:{secs:02d}> Answer: ", end="", flush=True)
+			
+			time.sleep(2)  # Simulate timer ticking
+			countdown_time -= 1
+
+		# If the countdown reaches zero, set self.solved to False and mark time as up
+		self.solved = False
+		self.time_up = True
+		print("\nTime's up! You can't answer now.")
+
+	def run_puzzle(self):
+		print(f"{self.name}")
+		print(f"{self.description}")
+		print("(Guess the number and it will tell you higher or lower.)")
+
+		self.solved = False  # Ensure default state
+		self.time_up = False  # Track whether time has expired
+
+		stop_thread = False
+		timer_thread = threading.Thread(target=self.timer_time, args=(lambda: stop_thread,))
+		timer_thread.daemon = True
+		timer_thread.start()
+
+		# Stop input if time runs out
+		while not self.time_up:
+			answer = input("\n> Answer: ").lower()
+
+			try:
+				answer = int(answer)
+			except:
+				print("Bad input! ❌")
+
+			if int(answer) == 5:
+				self.solved = True
+				print("You have solved the puzzle.")
+				break
+
+			elif int(answer) < 5:
+				print("Higher")
+			elif int(answer) > 5:
+				print("Lower")
+
+			else:
+				print("Incorrect. :(")
+
+		stop_thread = True  # Ensure the timer stops
+		timer_thread.join()
+		return self.solved
+	
+
+class escapeHatchHack(Puzzle):
+
+	def timer_time(self, stop):
+		countdown_time = 15
+
+		while countdown_time:
+			if stop():
+				return  # Stop immediately if flagged
+			
+			mins, secs = divmod(countdown_time, 60)
+			print(f"\n{mins:02d}:{secs:02d}> Answer: ", end="", flush=True)
+			
+			time.sleep(2)  # Simulate timer ticking
+			countdown_time -= 1
+
+		# If the countdown reaches zero, set self.solved to False and mark time as up
+		self.solved = False
+		self.time_up = True
+		print("\nTime's up! You can't answer now.")
+
+	def run_puzzle(self):
+		print(f"{self.name}")
+		print(f"{self.description}")
+		print("8 X 5 / (8 + 2)")
+
+
+		self.solved = False  # Ensure default state
+		self.time_up = False  # Track whether time has expired
+
+		stop_thread = False
+		timer_thread = threading.Thread(target=self.timer_time, args=(lambda: stop_thread,))
+		timer_thread.daemon = True
+		timer_thread.start()
+
+		# Stop input if time runs out
+		while not self.time_up:
+			answer = input("\n> Answer: ").lower()
+
+			try:
+				answer = int(answer)
+			except:
+				print("Bad input! ❌")
+
+			if int(answer) == 4:
+				self.solved = True
+				print("You have solved the puzzle.")
+				break
+
+			else:
+				print("Incorrect. :(")
+				
+		stop_thread = True  # Ensure the timer stops
+		timer_thread.join()
+		return self.solved
