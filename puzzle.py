@@ -5,7 +5,7 @@ import sys
 import time
 import threading
 
-import random as random
+import random 
 
 # Puzzle Interface
 # Must implement run_puzzle() and return self.solved
@@ -97,25 +97,73 @@ class KeypadRiddlePuzzle(Puzzle):
 		print(f"{self.name}")
 		print(f"{self.description}")
 
-		answer = input("The keypad asks: 'I am taken from a mine and shut up in a wooden case, but used by almost every person. What am I?' ").lower()
-		if answer == "pencil":
-			self.solved = True
-			print("Correct! The riddle puzzle is solved")
-		else:
-			print("Incorrect. Try again.")
+		attempts = 0
+		hint_given = False  # To track if a hint has already been given
+		correct_answer = "footsteps"
+		answer = None
+
+		while attempts < 3:
+			answer = input("The more you take, the more you leave behind. What am I? - ").lower()
+			if answer == "exit":
+				sys.exit()
+
+			if answer == correct_answer:
+				self.solved = True
+				print("Correct! The riddle puzzle is solved")
+				break
+			else:
+				attempts += 1
+				print("Incorrect. Try again.")
+				if attempts == 1 and not hint_given:
+					hint = input("Do you want a hint? (yes/no): ").lower()
+					if hint == "yes":
+						print("Hint: It is something that happens when you walk")
+						hint_given = True
+				elif attempts == 2 and not hint_given:
+					hint = input("Do you want a hint? (yes/no): ").lower()
+					if hint == "yes":
+						print("Hint: It's a clue related to walking and movement")
+						hint_given = True
 		return self.solved
+		
 		
 class SecurityPuzzle(Puzzle):
 	def run_puzzle(self):
 		print(f"{self.name}")
 		print(f"{self.description}")
 
-		answer = input("The screen flashes '3 + 5'. Enter the correct code: ").lower()
+
+		attempts = 0
+		hint_given = False  # To track if a hint has already been given
+		answer = None
+
+		while attempts < 3:
+			answer = input("The screen flashes '3 + 5'. Enter the correct code: ").lower()
+			if answer == "exit":
+				sys.exit()
+
+			if answer == "8":
+				self.solved = True
+				print("Correct! The door unlocks.")
+				break
+			else:
+				attempts += 1
+				print("Incorrect. Try again.")
+				if attempts == 2 and not hint_given:
+					hint = input("Do you want a hint? (yes/no): ").lower()
+					if hint == "yes":
+						print("Hint: You have five apples then you add 3 to it. What do you get?")
+						hint_given = True
+				elif attempts == 3:
+					print("You've failed to solve it. The system locks you out.")
+
+		"""answer = input("The screen flashes '3 + 5'. Enter the correct code: ").lower()
 		if answer == "8":
 			self.solved = True
 			print("Correct! The door unlocks.")
 		else:
-			print("Incorrect. Try again.")
+			print("Incorrect. Try again.")"""
+		
 		return self.solved
 	
 # Hacking puzzle
@@ -128,6 +176,28 @@ class HackingPuzzle(Puzzle):
 
 		correct_password = "phoenix"
 		attempts = 3
+		hint_given = False  # Track if a hint has been given
+
+		for attempt in range(1, attempts + 1):
+			guess = input(f"Attempt {attempt}/{attempts} - Enter password: ").lower()
+
+			if guess == correct_password:
+				self.solved = True
+				print("Access granted! You have successfully hacked into the system")
+				break
+			else:
+				print("Access denied. Try again.")
+				if attempt == 2 and not hint_given:
+					hint = input("Do you want a hint? (yes/no): ").lower()
+					if hint == "yes":
+						print("Hint: It's the name of a mythical bird (Dumbledore's pet)")
+						hint_given = True
+		if not self.solved:
+			print("Too many failed attempts. The system locks you out.")
+
+
+		"""correct_password = "phoenix"
+		attempts = 3
 
 		for attempt in range(1, attempts + 1):
 			guess = input(f"Attempt {attempt}/{attempts} - Enter password: ").lower()
@@ -139,7 +209,7 @@ class HackingPuzzle(Puzzle):
 			else:
 				print("Access denied. Try again.")
 		if not self.solved:
-			print("Too many failed attempts. The system locks you out.")
+			print("Too many failed attempts. The system locks you out.")"""
 
 		return self.solved
 	
@@ -149,7 +219,37 @@ class WireCuttingPuzzle(Puzzle):
 		print(f"{self.name}")
 		print(f"{self.description}")
 
-		print("The lights are flickering, you need to cut the right wires to disarm the security system")
+		attempts = 0
+		hint_given = False  # Tracks if a hint has been given
+		
+		while attempts < 3:
+			print("\nThere are 3 wires: red, blue, yellow")
+			wire1 = input("Cut wire 1: ").lower()
+			wire2 = input("Cut wire 2: ").lower()
+			wire3 = input("Cut wire 3: ").lower()
+
+			if wire1 == "exit" or wire2 == "exit" or wire3 == "exit":
+				sys.exit()
+
+            # Checks if the wires are cut in the correct order
+			if wire1 == "red" and wire2 == "yellow" and wire3 == "blue":
+				self.solved = True
+				print("Correct! The lights are disabled, and the security system is down.")
+				break
+			else:
+				attempts += 1
+				print("Incorrect wire cutting sequence. The lights remain on.")
+				if attempts == 2 and not hint_given:
+					hint = input("Do you want a hint? (yes/no): ").lower()
+					if hint == "yes":
+						print("Hint: The wires are in the order of colors commonly seen in traffic lights.")
+						hint_given = True
+				elif attempts == 3:
+					print("You've failed to solve it. The security system is now aware of your presence.")
+        
+
+
+		"""print("The lights are flickering, you need to cut the right wires to disarm the security system")
 		print("There are 3 wires: red, blue, yellow")
 		
 		# hardcoded correct sequence (for now)
@@ -164,7 +264,7 @@ class WireCuttingPuzzle(Puzzle):
 			self.solved = True
 			print("You successfully cut the wires in the right order! The lights go out")
 		else:
-			print("Incorrect wire cutting sequence. The lights remain on, security may be on the way")
+			print("Incorrect wire cutting sequence. The lights remain on, security may be on the way")"""
 		return self.solved
 	
 # Upload a virus puzzle
@@ -271,7 +371,43 @@ class CircuitMatchingPuzzle(Puzzle):
 		print(f"| {nodes[15]} | {nodes[16]} | {nodes[17]} | {nodes[18]} | {nodes[19]}")
 		print(f"| {nodes[20]} | {nodes[21]} | {nodes[22]} | {nodes[23]} | {nodes[24]}")
 
+
+		hint_given = False  # Track if a hint has been given
+		attempts = 0 # this trakcs the number of incorrect attempts
+
 		for nodes in nodes_key:
+			answer = input(f"> Node {nodes[0]} -> ").lower()
+
+			try:
+				answer = int(answer)
+			except:
+				print("Bad input! ❌")
+				self.solved = False
+				return self.solved
+            
+			if int(answer) != nodes[1]:
+				print("Bad connection made! ❌")
+				attempts += 1
+				self.solved = False
+				break
+			else:
+				print("Good connection! ✔️")
+				self.solved = True
+				
+		if self.solved:
+			print("⚡Power successfully rerouted! ⚡")
+		else:
+			print("No successful connections. The power remains unstable")
+			for attempt in range(3):
+				if attempt == 2 and not hint_given:
+					hint = input("Do you want a hint? (yes/no): ").lower()
+					if hint == "yes":
+						print("Hint: Look for the prime number pairs that match the given node")
+						hint_given = True
+						#break
+
+
+		"""for nodes in nodes_key:
 			answer = input(f"> Node {nodes[0]} -> ").lower()
 
 			try:
@@ -290,7 +426,7 @@ class CircuitMatchingPuzzle(Puzzle):
 				self.solved = True
 
 		if (self.solved):
-			print("⚡Power successfully rerouted! ⚡")
+			print("⚡Power successfully rerouted! ⚡")"""
 		return self.solved
 
 # Maintenance Shaft Puzzles
@@ -377,7 +513,44 @@ class MovingPlatformPuzzle(Puzzle):
 	
 class DeactivationPuzzle(Puzzle):
 	def run_puzzle(self):
-		return super().run_puzzle()
+		print(f"{self.name}")
+		print(f"{self.description}")
+
+		# list of possible words
+		words_list = ["guard", "escape", "diamond", "government"]
+
+		# chooses a random word and scrambles it
+		correct_word = random.choice(words_list)
+		scrambled_word = list(correct_word)
+		random.shuffle(scrambled_word)
+		scrambled_word = "".join(scrambled_word)
+
+		print(f"You see a scrambled code on the control panel: {scrambled_word}")
+
+		# allows the player up to 3 attempts
+		for attempt in range(3):
+			player_input = input("Enter the correct word to deactivate the barriers: ").lower()
+
+			if player_input == correct_word:
+				print("The barriers deactivate. You can proceed!")
+				self.solved = True #marks the puzzle as solved
+				return True
+			else:
+				print("Incorrect. Try again")
+
+				# offers a hint after the second failt attempt
+				if attempt == 1:
+					hint = input("Do you want a hint? (yes/no): ").lower()
+					if hint == "yes":
+						hint_letters = correct_word[:2] #this shows the first 2 letters
+						print(f"Hint: The first two letters are '{hint_letters}' .")
+				if attempt == 2:
+					print("You failed to solved the puzzle. The barriers remain active")
+					return False
+		return self.solved
+
+
+		#return super().run_puzzle()
 	
 class RapidRiddles(Puzzle):
 	def timer_time(self, stop):
@@ -417,6 +590,36 @@ class RapidRiddles(Puzzle):
 		# Stop input if time runs out
 		while not self.time_up:
 			print(self.riddles[self.answered])
+			answer = input("Answer (or type 'hint' for a clue): ").lower()
+
+			if self.time_up:  # Double check after input to prevent late answers
+				print("Time is already up! Too late.")
+				break
+
+			if answer == "exit":
+				stop_thread = True
+				sys.exit()
+
+			elif answer == "hint":
+				print("Hint: Think about common sayings or phrases related to the riddle.")
+				continue
+
+			elif answer == self.answers[self.answered]:
+				self.solved = True
+				print("That riddle is solved.")
+				self.answered += 1
+				if self.answered == 3:
+					print("You have solved the puzzle.")
+					break  # Stop waiting for input
+				else:
+					print("Incorrect. :(")
+					break  # Stop waiting for input
+
+		stop_thread = True  # Ensure the timer stops
+		timer_thread.join()
+
+		"""while not self.time_up:
+			print(self.riddles[self.answered])
 			answer = input().lower()
 
 			
@@ -442,7 +645,7 @@ class RapidRiddles(Puzzle):
 				break  # Stop waiting for input
 
 		stop_thread = True  # Ensure the timer stops
-		timer_thread.join()
+		timer_thread.join()"""
 
 		return self.solved  # Always return self.solved
 	
@@ -481,6 +684,29 @@ class guessThatSong(Puzzle):
 
 		# Stop input if time runs out
 		while not self.time_up:
+			answer = input("Answer (or type 'hint' for a clue): ").lower()
+
+			if self.time_up:  # Double check after input to prevent late answers
+				print("Time is already up! Too late.")
+				break
+
+			if answer == "exit":
+				stop_thread = True
+				sys.exit()
+			elif answer == "hint":
+				print("Hint: It's a patriotic song, often sung at sporting events.")
+				continue
+
+			elif answer == "the star spangled banner":
+				self.solved = True
+				print("You have solved the puzzle.")
+				break  # Stop waiting for input
+			else:
+				print("Incorrect. :(")
+				break  # Stop waiting for input
+		stop_thread = True  # Ensure the timer stops
+		timer_thread.join()
+		"""while not self.time_up:
 			
 			answer = input().lower()
 
@@ -502,6 +728,6 @@ class guessThatSong(Puzzle):
 				break  # Stop waiting for input
 
 		stop_thread = True  # Ensure the timer stops
-		timer_thread.join()
+		timer_thread.join()"""
 
 		return self.solved  # Always return self.solved
