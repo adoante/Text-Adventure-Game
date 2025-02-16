@@ -46,6 +46,11 @@ class Game:
 		self.escape_hatch = escapeHatchHack("Escape Hatch puzzle", "Solve the math code to open the escape hatch.")
 		self.vault_puzzles = [self.Weight_exchange,self.escape_hatch]
 
+		# NEW: Final Room Puzzles
+		self.final_lockdown = LockdownOverridePuzzle("Lockdown Override Puzzle", "Hack the final lockdown system to open the last door.")
+		self.final_escape = DaringEscapePuzzle("Daring Escape Puzzle", "Distract the guards and slip away with the Black Phoenix.")
+		self.final_room_puzzles = (self.final_lockdown, self.final_escape)
+
 		# Rooms init
 
 		self.room_number = 5
@@ -54,7 +59,6 @@ class Game:
 
 
 		self.rooms = [
-
 			Room(
 				"Start",
 				"""
@@ -137,7 +141,19 @@ class Game:
 				self.vault_puzzles,
 				["Object 1", "Object 2"]
 				
-			)
+			),
+			Room(
+                "Final Extraction",
+                """
+                Sirens are blaring and red lights flash across the corridor.
+                This is your last obstacle before disappearing into the night with the Black Phoenix.
+                A heavy blast door stands in your way, sealed by the facility's final lockdown override.
+                Guards are stationed at every exit. This is the do-or-die moment: 
+                solve these final challenges to break the lockdown and make a daring escape!
+                """,
+                self.final_room_puzzles,
+                ["Smoke Bomb", "Guard Uniform"]
+            )
 			]
 			
 		# Player init

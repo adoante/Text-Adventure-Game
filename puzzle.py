@@ -845,3 +845,77 @@ class escapeHatchHack(Puzzle):
 		stop_thread = True  # Ensure the timer stops
 		timer_thread.join()
 		return self.solved
+	
+class LockdownOverridePuzzle(Puzzle):
+    def run_puzzle(self):
+        print(f"{self.name}")
+        print(f"{self.description}")
+        
+        print("A massive lockdown protocol has been triggered. You see a console that requires a 4-digit override code.")
+        print("The code is rumored to be related to the diamond's codename. You only have 3 attempts!")
+        
+        correct_code = "1114"  # Example code referencing "1-1-14" => Letters A-A-N, “AAN” (for “Black PhoeNix”?) Up to you!
+        attempts = 3
+        hint_given = False
+
+        for attempt in range(1, attempts + 1):
+            guess = input(f"Attempt {attempt}/{attempts} - Enter override code: ").lower()
+
+            if guess == "exit":
+                sys.exit()
+
+            if guess == correct_code:
+                self.solved = True
+                print("Override complete! The lockdown lifts for a moment...")
+                break
+            else:
+                print("Access denied. Try again.")
+                # Offer hint on the second failed attempt
+                if attempt == 2 and not hint_given:
+                    want_hint = input("Do you want a hint? (yes/no): ").lower()
+                    if want_hint == "yes":
+                        print("Hint: The code is connected to your precious prize's name, 'Black Phoenix.'")
+                        hint_given = True
+        
+        if not self.solved:
+            print("Too many failed attempts. The lockdown remains in place.")
+        
+        return self.solved
+
+
+class DaringEscapePuzzle(Puzzle):
+    def run_puzzle(self):
+        print(f"{self.name}")
+        print(f"{self.description}")
+        
+        print("Guards have cornered you at the final exit. You must distract them long enough to slip away!")
+        print("Type the correct 'distraction phrase' within 10 seconds or you’ll be caught.")
+        
+        # Basic timing mechanism (shorter/easier version, no threading if you prefer)
+        import time
+        
+        start_time = time.time()
+        # We'll say you have 10 seconds
+        time_limit = 10
+        
+        # The correct phrase or word
+        correct_phrase = "look behind you!"
+        
+        # We only allow 1 attempt with time limit, but you could do more if you want
+        attempt = input("Enter your distraction phrase: ").lower()
+        
+        # Check time
+        end_time = time.time()
+        elapsed = end_time - start_time
+        
+        if elapsed > time_limit:
+            print("Time's up! The guards swarm you. Puzzle failed.")
+            return self.solved  # remains False
+        
+        if attempt == correct_phrase:
+            self.solved = True
+            print("The guards fall for it, and you slip past!")
+        else:
+            print("They aren't buying it. Puzzle failed!")
+        
+        return self.solved
