@@ -378,3 +378,130 @@ class MovingPlatformPuzzle(Puzzle):
 class DeactivationPuzzle(Puzzle):
 	def run_puzzle(self):
 		return super().run_puzzle()
+	
+class RapidRiddles(Puzzle):
+	def timer_time(self, stop):
+		countdown_time = 60
+
+		while countdown_time:
+			if stop():
+				return  # Stop immediately if flagged
+			
+			mins, secs = divmod(countdown_time, 60)
+			print(f"\n{mins:02d}:{secs:02d}> Answer: ", end="", flush=True)
+			
+			time.sleep(2)  # Simulate timer ticking
+			countdown_time -= 1
+
+		# If the countdown reaches zero, set self.solved to False and mark time as up
+		self.solved = False
+		self.time_up = True
+		print("\nTime's up! You can't answer now.")
+
+	def run_puzzle(self):
+		print(f"{self.name}")
+		print(f"{self.description}")
+
+		self.riddles = ["rodiamondugh","Goooooooooooooooo","the weather\nfeeling"] 
+		self.answers = ["diamond in the rough", "go long","feeling under the weather"]
+		self.answered = 0
+
+		self.solved = False  # Ensure default state
+		self.time_up = False  # Track whether time has expired
+
+		stop_thread = False
+		timer_thread = threading.Thread(target=self.timer_time, args=(lambda: stop_thread,))
+		timer_thread.daemon = True
+		timer_thread.start()
+
+		# Stop input if time runs out
+		while not self.time_up:
+			print(self.riddles[self.answered])
+			answer = input().lower()
+
+			
+
+			if self.time_up:  # Double check after input to prevent late answers
+				print("Time is already up! Too late.")
+				break
+
+			if answer == "exit":
+				stop_thread = True
+				sys.exit()
+
+			elif answer == self.answers[self.answered]:
+				self.solved = True
+				print("That riddle is solved.")
+				self.answered += 1
+				if( self.answered == 3):
+					print("You have solved the puzzle.")
+					break  # Stop waiting for input
+			
+			else:
+				print("Incorrect. :(")
+				break  # Stop waiting for input
+
+		stop_thread = True  # Ensure the timer stops
+		timer_thread.join()
+
+		return self.solved  # Always return self.solved
+	
+class guessThatSong(Puzzle):
+	def timer_time(self, stop):
+		countdown_time = 30
+
+		while countdown_time:
+			if stop():
+				return  # Stop immediately if flagged
+			
+			mins, secs = divmod(countdown_time, 60)
+			print(f"\n{mins:02d}:{secs:02d}> Answer: ", end="", flush=True)
+			
+			time.sleep(2)  # Simulate timer ticking
+			countdown_time -= 1
+
+		# If the countdown reaches zero, set self.solved to False and mark time as up
+		self.solved = False
+		self.time_up = True
+		print("\nTime's up! You can't answer now.")
+
+	def run_puzzle(self):
+		print(f"{self.name}")
+		print(f"{self.description}")
+
+		print("oscysbtdelwspwhattlgwbsabsttpfotrwwwsgsatrrgtbbiagpttntofwstosdtsbywotlotfathotb")
+
+		self.solved = False  # Ensure default state
+		self.time_up = False  # Track whether time has expired
+
+		stop_thread = False
+		timer_thread = threading.Thread(target=self.timer_time, args=(lambda: stop_thread,))
+		timer_thread.daemon = True
+		timer_thread.start()
+
+		# Stop input if time runs out
+		while not self.time_up:
+			
+			answer = input().lower()
+
+			if self.time_up:  # Double check after input to prevent late answers
+				print("Time is already up! Too late.")
+				break
+
+			if answer == "exit":
+				stop_thread = True
+				sys.exit()
+
+			elif answer == "the star spangled banner":
+				self.solved = True
+				print("You have solved the puzzle.")
+				break  # Stop waiting for input
+			
+			else:
+				print("Incorrect. :(")
+				break  # Stop waiting for input
+
+		stop_thread = True  # Ensure the timer stops
+		timer_thread.join()
+
+		return self.solved  # Always return self.solved

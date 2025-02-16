@@ -37,8 +37,12 @@ class Game:
 		self.deactivation_puzzle = DeactivationPuzzle("Deactivation Puzzle", "Deactivate the electric barriers.")
 		self.maintenance_shaft_puzzles = (self.platform_puzzle, self.deactivation_puzzle)
 
+		self.Riddle_puzzle = RapidRiddles("Rapid Riddles Puzzle", "Answer all the riddles before the time runs out.")
+		self.Song_guesser = guessThatSong("Guess That Song Puzzle", "What well-known song is this string of letters referring to?")
+		self.antechamber_puzzles = (self.Riddle_puzzle, self.Song_guesser)
+
 		# Rooms init
-		self.room_number = 3
+		self.room_number = 4
 
 		self.rooms = [
 
@@ -98,6 +102,19 @@ class Game:
 				""",
 				self.maintenance_shaft_puzzles,
 				["Floating Platform", "Car Battery"]
+			),
+			Room(
+				"Antechamber",
+				"""
+				You burst into the Vault Antechamber—the final barrier before the prize. 
+				In front of you stands a massive, reinforced door covered in intricate locking mechanisms and glowing symbols.
+				A countdown timer blinks ominously above the door, triggered by the facility’s breach detection.
+				The locking system is designed to be solved through a series of riddles and combinations, each more complex than the last.
+				The air is thick with tension, and every second counts as distant footsteps and alarms echo through the halls.
+				Solve the puzzles in time, or risk being permanently sealed inside with the vault forever out of reach.
+				""",
+				self.antechamber_puzzles,
+				["Rail Gun", "Meteorite"]
 			)
 			]
 			
