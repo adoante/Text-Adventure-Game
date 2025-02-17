@@ -232,6 +232,7 @@ class UploadVirusPuzzle(Puzzle):
 
 	def timer_time(self, stop):
 		global input_time
+		input_time = 0
 		countdown_time = 0
 
 		while True:
@@ -372,6 +373,7 @@ class MovingPlatformPuzzle(Puzzle):
 
 	def timer_time(self, stop):
 		global input_interval
+		input_interval = 0
 		interval = 0
 
 		while True:
@@ -406,7 +408,7 @@ class MovingPlatformPuzzle(Puzzle):
 
 			# threading setup
 			stop_thread = False
-			threading1 = threading.Thread(target=self.timer_time, args=(lambda: stop_thread))
+			threading1 = threading.Thread(target=self.timer_time, args=(lambda: stop_thread,))
 			threading1.daemon = True
 			threading1.start()
 
