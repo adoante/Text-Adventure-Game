@@ -53,8 +53,7 @@ class Game:
 
 		# Rooms init
 
-		self.room_number = 0
-
+		self.room_number = 6
 
 		self.rooms = [
 			Room(
@@ -119,7 +118,7 @@ class Game:
 				"""
 				You burst into the Vault Antechamber—the final barrier before the prize. 
 				In front of you stands a massive, reinforced door covered in intricate locking mechanisms and glowing symbols.
-				A countdown timer blinks ominously above the door, triggered by the facility’s breach detection.
+				A countdown timer blinks ominously above the door, triggered by the facility's breach detection.
 				The locking system is designed to be solved through a series of riddles and combinations, each more complex than the last.
 				The air is thick with tension, and every second counts as distant footsteps and alarms echo through the halls.
 				Solve the puzzles in time, or risk being permanently sealed inside with the vault forever out of reach.
@@ -137,7 +136,7 @@ class Game:
 				There's no time to think. You must escape with the prize—now.
 				""",
 				self.vault_puzzles,
-				["Object 1", "Object 2"]
+				["Black Phoenix", "Black Phoenix: Electric Boogaloo"]
 				
 			),
 			Room(
@@ -173,10 +172,12 @@ class Game:
 		
 		Get ready for the heist of the century...
 		"""
+
 		#splitting the story into lines and print each line with a small delay for a scrolling effect
 		for line in story.splitlines():
 			print(line)
 			time.sleep(1) #this will adjust this for longer/shorter pauses between lines
+
 		print("\nType 'Next' to begin your journey or 'Exit' to quit the game.")
 
 		#this is for waiting for the players input so the game can start
@@ -190,6 +191,32 @@ class Game:
 				sys.exit()
 			else:
 				print("Invalid command. Type 'Next' to begin or 'Exit' to quit.")		
+
+	# Game ending screen
+	def end_screen(self):
+		story = """
+		As the final barrier gives way, you sprint into the night, the Black Phoenix secured in your grip.
+		The city's skyline stretches before you, neon lights flickering against the rain-soaked streets.
+		Behind you, alarms wail and distant shouts echo through the facility, but it's too late—they'll never catch you now.
+		Vanishing into the shadows, you slip into the carefully planned escape route, leaving nothing behind but mystery and legend.
+		The heist of the century is complete, and the world will wake to the news of the impossible.
+		
+		You are more than just a thief—you are a ghost, a myth, a legend."
+		"""
+
+		#splitting the story into lines and print each line with a small delay for a scrolling effect
+		for line in story.splitlines():
+			print(line)
+			time.sleep(1) #this will adjust this for longer/shorter pauses between lines
+
+		# score based on items and the number of characters in that string
+		score = sum(len(i) for i in self.player.items)
+
+		print("\nYou have escaped with:\n")
+		print(f"{', '.join(self.player.items)}")
+		print(f"Score: {score}")
+		
+		tprint("The End!")
 
 	def start_game(self):
 		self.player.print_commands()
@@ -217,7 +244,7 @@ class Game:
 
 				# Determine if player has beat the game
 				if self.room_number == len(self.rooms):
-					print("You beat the game!")
+					self.end_screen()
 					sys.exit()
 				# Move player to next room
 				else:
