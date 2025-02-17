@@ -53,7 +53,7 @@ class Game:
 
 		# Rooms init
 
-		self.room_number = 6
+		self.room_number = 0
 
 		self.rooms = [
 			Room(
