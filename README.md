@@ -1,3 +1,5 @@
+**Project is done. Repo will be archived.**
+
 # Text Adventure Game
 
 Extendable by:
