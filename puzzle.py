@@ -406,7 +406,7 @@ class MovingPlatformPuzzle(Puzzle):
 
 			# threading setup
 			stop_thread = False
-			threading1 = threading.Thread(target=self.timer_time, args=(lambda: stop_thread, t_id))
+			threading1 = threading.Thread(target=self.timer_time, args=(lambda: stop_thread))
 			threading1.daemon = True
 			threading1.start()
 
