@@ -126,7 +126,6 @@ class KeypadRiddlePuzzle(Puzzle):
 						hint_given = True
 		return self.solved
 		
-		
 class SecurityPuzzle(Puzzle):
 	def run_puzzle(self):
 		print(f"{self.name}")
@@ -156,13 +155,6 @@ class SecurityPuzzle(Puzzle):
 						hint_given = True
 				elif attempts == 3:
 					print("You've failed to solve it. The system locks you out.")
-
-		"""answer = input("The screen flashes '3 + 5'. Enter the correct code: ").lower()
-		if answer == "8":
-			self.solved = True
-			print("Correct! The door unlocks.")
-		else:
-			print("Incorrect. Try again.")"""
 		
 		return self.solved
 	
@@ -194,22 +186,6 @@ class HackingPuzzle(Puzzle):
 						hint_given = True
 		if not self.solved:
 			print("Too many failed attempts. The system locks you out.")
-
-
-		"""correct_password = "phoenix"
-		attempts = 3
-
-		for attempt in range(1, attempts + 1):
-			guess = input(f"Attempt {attempt}/{attempts} - Enter password: ").lower()
-
-			if guess == correct_password:
-				self.solved = True
-				print("Access granted! You have successfully hacked into the system")
-				break
-			else:
-				print("Access denied. Try again.")
-		if not self.solved:
-			print("Too many failed attempts. The system locks you out.")"""
 
 		return self.solved
 	
@@ -246,25 +222,7 @@ class WireCuttingPuzzle(Puzzle):
 						hint_given = True
 				elif attempts == 3:
 					print("You've failed to solve it. The security system is now aware of your presence.")
-        
 
-
-		"""print("The lights are flickering, you need to cut the right wires to disarm the security system")
-		print("There are 3 wires: red, blue, yellow")
-		
-		# hardcoded correct sequence (for now)
-		correct_sequence = ["red", "yellow", "blue"]
-		sequence = []
-
-		for i in range(3):
-			wire = input(f"Cut wire {i + 1}:").lower()
-			sequence.append(wire)
-
-		if sequence == correct_sequence:
-			self.solved = True
-			print("You successfully cut the wires in the right order! The lights go out")
-		else:
-			print("Incorrect wire cutting sequence. The lights remain on, security may be on the way")"""
 		return self.solved
 	
 # Upload a virus puzzle
@@ -373,7 +331,7 @@ class CircuitMatchingPuzzle(Puzzle):
 
 
 		hint_given = False  # Track if a hint has been given
-		attempts = 0 # this trakcs the number of incorrect attempts
+		attempts = 0 # this tracks the number of incorrect attempts
 
 		for nodes in nodes_key:
 			answer = input(f"> Node {nodes[0]} -> ").lower()
@@ -404,42 +362,17 @@ class CircuitMatchingPuzzle(Puzzle):
 					if hint == "yes":
 						print("Hint: Look for the prime number pairs that match the given node")
 						hint_given = True
-						#break
 
-
-		"""for nodes in nodes_key:
-			answer = input(f"> Node {nodes[0]} -> ").lower()
-
-			try:
-				answer = int(answer)
-			except:
-				print("Bad input! ❌")
-				self.solved = False
-				return self.solved
-			
-			if int(answer) != nodes[1]:
-				print("Bad connection made! ❌")
-				self.solved = False
-				break
-			else:
-				print("Good connection! ✔️")
-				self.solved = True
-
-		if (self.solved):
-			print("⚡Power successfully rerouted! ⚡")"""
 		return self.solved
 
 # Maintenance Shaft Puzzles
-
 class MovingPlatformPuzzle(Puzzle):
 
 	input_interval = 0
 
-	def timer_time(self, stop, t_id):
+	def timer_time(self, stop):
 		global input_interval
 		interval = 0
-
-		#print(f"Starting thread {t_id}")
 
 		while True:
 			if stop():
@@ -472,7 +405,6 @@ class MovingPlatformPuzzle(Puzzle):
 			time.sleep(1.5)
 
 			# threading setup
-			t_id = i
 			stop_thread = False
 			threading1 = threading.Thread(target=self.timer_time, args=(lambda: stop_thread, t_id))
 			threading1.daemon = True
@@ -538,7 +470,7 @@ class DeactivationPuzzle(Puzzle):
 			else:
 				print("Incorrect. Try again")
 
-				# offers a hint after the second failt attempt
+				# offers a hint after the second fail attempt
 				if attempt == 1:
 					hint = input("Do you want a hint? (yes/no): ").lower()
 					if hint == "yes":
@@ -548,9 +480,6 @@ class DeactivationPuzzle(Puzzle):
 					print("You failed to solved the puzzle. The barriers remain active")
 					return False
 		return self.solved
-
-
-		#return super().run_puzzle()
 	
 class RapidRiddles(Puzzle):
 	def timer_time(self, stop):
@@ -617,35 +546,6 @@ class RapidRiddles(Puzzle):
 		stop_thread = True  # Ensure the timer stops
 		timer_thread.join()
 
-		"""while not self.time_up:
-			print(self.riddles[self.answered])
-			answer = input().lower()
-
-			
-
-			if self.time_up:  # Double check after input to prevent late answers
-				print("Time is already up! Too late.")
-				break
-
-			if answer == "exit":
-				stop_thread = True
-				sys.exit()
-
-			elif answer == self.answers[self.answered]:
-				self.solved = True
-				print("That riddle is solved.")
-				self.answered += 1
-				if( self.answered == 3):
-					print("You have solved the puzzle.")
-					break  # Stop waiting for input
-			
-			else:
-				print("Incorrect. :(")
-				break  # Stop waiting for input
-
-		stop_thread = True  # Ensure the timer stops
-		timer_thread.join()"""
-
 		return self.solved  # Always return self.solved
 	
 class guessThatSong(Puzzle):
@@ -702,35 +602,12 @@ class guessThatSong(Puzzle):
 				break  # Stop waiting for input
 			else:
 				print("Incorrect. :(")
+
 		stop_thread = True  # Ensure the timer stops
 		timer_thread.join()
-		"""while not self.time_up:
-			
-			answer = input().lower()
-
-			if self.time_up:  # Double check after input to prevent late answers
-				print("Time is already up! Too late.")
-				break
-
-			if answer == "exit":
-				stop_thread = True
-				sys.exit()
-
-			elif answer == "the star spangled banner":
-				self.solved = True
-				print("You have solved the puzzle.")
-				break  # Stop waiting for input
-			
-			else:
-				print("Incorrect. :(")
-				break  # Stop waiting for input
-
-		stop_thread = True  # Ensure the timer stops
-		timer_thread.join()"""
 
 		return self.solved  # Always return self.solved
 	
-
 class weightExchange(Puzzle):
 
 	def timer_time(self, stop):
@@ -789,7 +666,6 @@ class weightExchange(Puzzle):
 		stop_thread = True  # Ensure the timer stops
 		timer_thread.join()
 		return self.solved
-	
 
 class escapeHatchHack(Puzzle):
 
@@ -881,7 +757,6 @@ class LockdownOverridePuzzle(Puzzle):
             print("Too many failed attempts. The lockdown remains in place.")
         
         return self.solved
-
 
 class DaringEscapePuzzle(Puzzle):
     def run_puzzle(self):

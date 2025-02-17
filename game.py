@@ -26,7 +26,7 @@ class Game:
 		self.hacking_puzzle = HackingPuzzle("Hacking Puzzle", "Hack into the system to override security")
 		self.control_room_puzzles = (self.wire_puzzle, self.hacking_puzzle)
 
-		# Data Center - Upload virus and [puzzle] puzzles
+		# Data Center
 		self.virus_puzzle = UploadVirusPuzzle("Virus Upload Puzzle", "Upload the virus to the system.")
 		self.circuit_puzzle = CircuitMatchingPuzzle("Circuit Matching Puzzle", "Match the nodes to each other.")
 		self.data_center_puzzles = (self.virus_puzzle, self.circuit_puzzle)
@@ -36,26 +36,24 @@ class Game:
 		self.deactivation_puzzle = DeactivationPuzzle("Deactivation Puzzle", "Deactivate the electric barriers.")
 		self.maintenance_shaft_puzzles = (self.platform_puzzle, self.deactivation_puzzle)
 
-		#antechamber
+		# Antechamber
 		self.Riddle_puzzle = RapidRiddles("Rapid Riddles Puzzle", "Answer all the riddles before the time runs out.")
 		self.Song_guesser = guessThatSong("Guess That Song Puzzle", "What well-known song is this string of letters referring to?")
 		self.antechamber_puzzles = (self.Riddle_puzzle, self.Song_guesser)
 
-		#Vault
+		# Vault
 		self.Weight_exchange = weightExchange("Weight Exchange Puzzle","Guess the correct weight of the Black Phoenix so you can switch the diamond out with a counter weight.")
 		self.escape_hatch = escapeHatchHack("Escape Hatch puzzle", "Solve the math code to open the escape hatch.")
 		self.vault_puzzles = [self.Weight_exchange,self.escape_hatch]
 
-		# NEW: Final Room Puzzles
+		# Final Room Puzzles
 		self.final_lockdown = LockdownOverridePuzzle("Lockdown Override Puzzle", "Hack the final lockdown system to open the last door.")
 		self.final_escape = DaringEscapePuzzle("Daring Escape Puzzle", "Distract the guards and slip away with the Black Phoenix.")
 		self.final_room_puzzles = (self.final_lockdown, self.final_escape)
 
 		# Rooms init
 
-		self.room_number = 5
-		#self.room_number = 3
-		#self.room_number = 2
+		self.room_number = 0
 
 
 		self.rooms = [
@@ -133,10 +131,10 @@ class Game:
 				"Vault",
 				"""
 				The vault door hisses open, revealing a pedestal in the center of a stark, brightly lit room.
-				Sitting on the pedestal is the Black Phoenix—the diamond that’s driven you to plan this heist for months.
+				Sitting on the pedestal is the Black Phoenix—the diamond that's driven you to plan this heist for months.
 				It sparkles with an otherworldly brilliance under the harsh lights.
 				But as you step forward, an alarm blares. The facility has entered full lockdown.
-				There’s no time to think. You must escape with the prize—now.
+				There's no time to think. You must escape with the prize—now.
 				""",
 				self.vault_puzzles,
 				["Object 1", "Object 2"]
